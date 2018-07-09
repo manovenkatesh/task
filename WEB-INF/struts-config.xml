@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+		  
+<struts-config>
+	<global-forwards>
+		<forward name="view" path="view.do" />
+	</global-forwards>
+		
+	
+	<action-mappings>
+		<action  path="/view" type="com.zoho.ViewAction">
+			<forward name="success" path="/inter.jsp" />
+		</action>
+		
+		<action path="/duosecurity" parameter="operation" type="com.zoho.duosecure">
+			<forward name="getotp" path="/duocheck.jsp" />
+			<forward name="success" path="/view.jsp" />
+			<forward name="failure" path="/logout.jsp" />
+		</action>
+		<!--
+		<action input="/getUsername.jsp" parameter="operation" path="/reset"  type="com.zoho.reset">
+			<forward name="success" path="/getUsername.jsp" />
+			<forward name="user" path="/verification.jsp" />
+			<forward name="nonuser" path="/getUsername.jsp" />
+			
+		</action>
+		-->
+		<action path="/logout" forward="/logout.jsp" />
+		<action path="/ajaxAction" parameter="operation" type="com.zoho.ajaxAction"/>
+
+		<action parameter="operation" path="/reset" type="com.zoho.reset">
+				<forward name="success" path="/getUsername.jsp" />
+				<forward name="user" path="/verification.jsp" />
+				<forward name="nonuser" path="/getUsername.jsp" />
+				<forward name="otpsend" path="/getotp.jsp" />
+				<forward name="matched" path="/resetpassword.jsp" />
+				<forward name="notmatched" path="/getotp.jsp" />
+				<forward name="reset" path="/successpage.jsp" />
+				<forward name="failure" path="/resetpassword.jsp" />
+		</action>
+		
+		<action parameter="operation" path="/resetpass" type="com.zoho.reset">
+				<forward name="user" path="/verification.jsp" />
+				<forward name="nonuser" path="/getUsername.jsp" />
+		</action>
+		
+		<action input="/view.jsp" parameter="operation" path="/enroll" type="com.zoho.EnrollAction">
+			<forward name="success" path="/enroll.jsp" />
+			<forward name="enrolled" path="/view.do" />
+			<forward name="failed" path="/enroll.jsp" />
+		</action>
+		<action input="/view.jsp" parameter="operation" path="/changePassword" type="com.zoho.ChangePassword">
+			<forward name="success" path="/changePassword.jsp" />
+			<forward name="oldpasswrong" path="/changePassword.jsp" />
+			<forward name="conpasswrong" path="/changePassword.jsp" />
+			<forward name="changed" path="/view.do" />
+			<forward name="jdbc" path="/view.do" />
+		</action>
+	
+		<!--
+		<action input="/enroll.jsp" parameter="operation" path="/enroll" type="com.zoho.EnrollAction">
+			<forward name="enrolled" path="/view.do" />
+			<forward name="failed" path="/enroll.jsp" />
+		</action>
+		-->
+	</action-mappings>
+	
+
+</struts-config>

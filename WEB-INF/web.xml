@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+        </servlet>
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+	<!--	<url-pattern>/*</url-pattern> -->
+        <url-pattern>*.do</url-pattern> 
+	
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+	
+
+	 <security-constraint>
+      <display-name>employee</display-name>
+      <web-resource-collection>
+         <web-resource-name>employee</web-resource-name>
+        <url-pattern>/*</url-pattern>
+		<!-- <url-pattern>*.do</url-pattern>
+		 <url-pattern>*.jsp</url-pattern> -->
+         <http-method>GET</http-method>
+         <http-method>POST</http-method>
+      </web-resource-collection>
+      <auth-constraint>
+         <role-name>dude</role-name>
+      </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+      <auth-method>FORM</auth-method>
+      <realm-name>jdbc realm</realm-name>
+      <form-login-config>
+        <form-login-page>/login.jsp</form-login-page>
+     <form-error-page>/loginerror.jsp</form-error-page> 
+      </form-login-config>
+    </login-config>
+
+ 
+    <security-role>
+      <role-name>dude</role-name>
+    </security-role>
+
+	 <security-constraint>
+      <display-name>employee</display-name>
+      <web-resource-collection>
+         <web-resource-name>employee</web-resource-name>
+         <url-pattern>/reset.do</url-pattern>
+		<url-pattern>/logout.do</url-pattern>
+		<url-pattern>/ajaxAction.do</url-pattern>
+		 <!--<url-pattern>/resetpass.do?operation=verify</url-pattern>
+		 <url-pattern>/resetpass.do/verification.jsp</url-pattern>
+		 <url-pattern>/resetpass.do/*</url-pattern>-->
+      </web-resource-collection>
+    </security-constraint>
+	
+	
+      <welcome-file-list>
+       
+        <welcome-file>view.do</welcome-file>
+    </welcome-file-list>
+
+
+    </web-app>
